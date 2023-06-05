@@ -6,8 +6,11 @@ import { apiClient } from './ApiClient'
 //     = (username, userProfile) => apiClient.put(`/${username}/profile`, userProfile)
 
 // Developement API request
-export const updateUserProfile 
-    = (username, userProfile) => apiClient.put(`/${username}/profile`, userProfile)
+export const updateUserImage
+    = (username, userImage) => apiClient.put(`/${username}/image`, userImage)
+
+export const testRetrieveUsername
+    = (username) => apiClient.get(`/${username}`)
 
 export const retrieveLeaderboardApi
     = (username) => apiClient.get('/leaderboard')

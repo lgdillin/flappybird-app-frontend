@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { useParams, useNavigate} from 'react-router-dom'
-import { updateUserProfile } from './api/UserApiService'
+import { updateUserImage } from './api/UserApiService'
 import { useAuth } from './security/AuthContext'
 import {Formik, Form, Field, ErrorMessage } from 'formik'
 
@@ -44,7 +44,7 @@ const ProfileComponent = () => {
 
         console.log(userProfile)
 
-        updateUserProfile(username, userProfile)
+        updateUserImage(username, myPhoto)
         .then(() => {
             //console.log(response.data)
             navigate(`/welcome/${username}`)

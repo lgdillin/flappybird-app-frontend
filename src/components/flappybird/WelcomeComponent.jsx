@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom"
 import { useState } from "react"
 import { useAuth } from "./security/AuthContext"
 import { GameComponent } from "./GameComponent"
-import { submitGameScore, retrieveProfilePictureApi } from "./api/UserApiService"
+import { submitGameScore, retrieveProfilePictureApi, testRetrieveUsername } from "./api/UserApiService"
 
 
 export default function WelcomeComponent() {
@@ -49,7 +49,7 @@ export default function WelcomeComponent() {
         <div className="WelcomeComponent">
             <h1>Welcome {username}</h1>
             <div>
-                <button className="btn btn-success m-5" >
+                <button className="btn btn-success m-5" onClick={testRetrieveUsername}>
                     Call testapi
                 </button>
             </div>

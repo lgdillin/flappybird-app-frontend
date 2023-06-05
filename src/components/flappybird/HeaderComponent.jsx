@@ -24,14 +24,15 @@ function HeaderComponent() {
                 <div className='container'>
                     <div className='logo'>Flappy Bird</div>
                     
-                        <div className='navbar'>
+                        <div className='navbar' style={{alignItems:'left', 'width':'50%'}}>
                             {isAuthenticated && <Link className="nav-link-auth" to={welcomePage}>Home</Link>}
                             {isAuthenticated && <Link className="nav-link-auth" to={profilePage}>Profile</Link>}
                             {isAuthenticated && <Link className="nav-link-auth" to={leaderboard}>Leaderboard</Link>}
+                            {isAuthenticated && <Link className="nav-link-auth" to="/game">Play</Link>} 
                             {/* {!isAuthenticated && <Link className="nav-link-uath" to="/login">Login</Link>}  */}
                         </div>
-                        <div className='login-logout'>
-                            {isAuthenticated && <Link className="nav-link-auth" to="/game">Play</Link>}                                    
+                        <div className='login-logout' style={{alignItems:'right', display:'flex'}}>   
+                            {isAuthenticated && <Link className="nav-link-auth" to="/logout">Logout</Link>}                                
                             {!isAuthenticated && <Link className="nav-link-uath" to="/login">Login</Link>}                                    
                             {!isAuthenticated && <Link className="nav-link-uath" to="/signup">Signup</Link>}
                         

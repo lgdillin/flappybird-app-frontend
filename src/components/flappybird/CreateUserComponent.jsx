@@ -21,7 +21,10 @@ const CreateUserComponent = () => {
             // password: 'Enter a valid target date'
             // confirmPassword: 'Passwords do not match'
         }
-        console.log('here')
+
+        //const regex = /^[a-zA-Z0-9!@#$%^&*)(+._-]+$/g
+        const regex = /[\<\>\(\)\=\'\"]/g
+
         if(values.username.length < minUsernameLength || values.username.length > maxUsernameLength) {
             errors.username = 'Check username length'
         }
@@ -33,6 +36,17 @@ const CreateUserComponent = () => {
 
         if(values.password != values.confirmPassword) {
             errors.confirmPassword = 'Passwords do not match'
+        }
+
+        // If the regex finds an illegal character in username
+        if(regex.test(values.username)) {
+            errors.password = 'Username contains illegal character'
+        }
+
+        // If the regex finds an illegal character in password
+        if(regex.test(values.password)) {
+            console.log(values.password)
+            errors.password = 'Password contains illegal character'
         }
 
         // username does not have enough/too many characters
