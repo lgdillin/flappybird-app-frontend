@@ -1,0 +1,46 @@
+            <Formik 
+                initialValues={{
+                    profileImage: '',
+                    screenName: ''
+                }}
+
+                enableReinitialize = {true}
+                onSubmit={onSubmit}
+                validate={validate}
+                validateOnChange = {false}
+                validateOnBlur = {false}
+            >
+ 
+                {(formProps) => (
+
+                    <Form>
+                        <ErrorMessage 
+                            name="screenName"
+                            component="div"
+                            className = "alert alert-warning"
+                        />
+
+
+                        <div className="userDetails">
+                            <h1 className="profileHeader">Update Profile</h1>
+                        </div>
+                        <div className="detailsBlock">
+                            <div>
+                                <h5>Update user Info:</h5>
+                                Screen Name<Field type="text" className="form-control" name="screenName" />
+                            </div>
+                            <div></div>
+                        </div>
+
+                        <div style={{paddingBottom: 50}}></div>
+
+                        <div>
+                        <ImgHolder src={myPhoto}/>
+                        <Field type='file' name='profileImage' onChange={handleChange} />
+                        </div>
+                        <div>
+                        <button className="btn btn-success m-5" type="submit">Save</button>
+                        </div>
+                    </Form>
+                )}
+            </Formik>

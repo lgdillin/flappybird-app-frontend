@@ -1,0 +1,60 @@
+.headerComponent {
+    font-size: 50px;
+    background-color: aquamarine;
+    border-color: black;
+    border-bottom: 5px;
+    margin-bottom: 5;
+    padding: 2px;
+}
+
+.container {
+    display: flex;
+    width: 80%;
+    align-self: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.logo {
+    font-size: 24px;
+    text-align: left;
+}
+
+.navbar {
+    /* padding: 8px; */
+    /* align-items: bottom; */
+    
+    font-size: 16px;
+    display: block;
+}
+
+.nav-item {
+    font-size: 16px;
+    bottom: 0;
+    object-position: center bottom;
+    
+    /* padding: 10px; */
+}
+
+.nav-link-auth {
+    bottom: 0;
+}
+
+.nav-link-uauth {
+    bottom: 0;
+}
+
+.login-logout {
+    font-size: 16px;
+}
+
+.login-logout.nav-link-auth {
+    font-size: 16px;
+    color: black;
+}
+
+.login-logout.nav-link-uauth {
+
+    font-size: 16px;
+    color: rgb(255, 0, 0);
+}
