@@ -44,17 +44,11 @@ const ProfileComponent = () => {
 
         console.log(userProfile)
 
-        updateUserImage(username, myPhoto)
+        updateUserImage(username, userProfile)
         .then(() => {
             //console.log(response.data)
             navigate(`/welcome/${username}`)
         })
-        // .catch(error => {
-        //     console.log('here')
-        //     console.log(error)
-        // }).finally(response => {
-        //     console.log('test')
-        // })
     }
 
     function validate(values) {

@@ -1,6 +1,9 @@
 import styled from 'styled-components'
 import { useEffect, useState } from 'react';
 import { useRef } from 'react';
+import { submitGameScore } from './api/UserApiService'
+import { useAuth } from './security/AuthContext';
+import { useNavigate, Link } from 'react-router-dom'
 
 // Image resources
 import tube_down from '../game/tube_down.png'
@@ -10,6 +13,11 @@ import bird2 from '../game/bird2.png'
 import cloud from '../game/cloud.png'
 
 function FlappyBirdComponent() {
+
+    const authContext = useAuth()
+    const username = authContext.username
+
+    const navigate = useNavigate()
 
     const GAME_WIDTH = 500;
     const GAME_HEIGHT = 500;
@@ -47,6 +55,14 @@ function FlappyBirdComponent() {
     const genRandomCloudHeight = () => {
         // 456 is a random number that produces cooler results
         return Math.min(Math.max(Math.random() * 456, CLOUD_MIN), CLOUD_MAX)
+    }
+
+    const submitScore = () => {
+        submitGameScore(username, score)
+        .then(response => {
+            console.log(response)
+            //navigate('/leaderboard')
+        }).catch(error => console.log(error))
     }
 
     // Handle physics simulations on the bird
@@ -95,7 +111,8 @@ function FlappyBirdComponent() {
             return () => {
                 clearInterval(obstacleId)
             }
-        } else {
+        } else if(gameHasStarted) {
+        //} else{
             setObstacleLeft(GAME_WIDTH + OBSTACLE_WIDTH)
             setObstacleHeight(Math.floor(Math.random() * (GAME_HEIGHT - OBSTACLE_GAP)))
             setScore(s => s + 1)
@@ -115,8 +132,8 @@ function FlappyBirdComponent() {
             && (hasCollisionWithBottom || hasCollisionWithTop))
             || (birdPosition + BIRD_HEIGHT >= GAME_HEIGHT))
         {
-            setGameHasStarted(false)
             setScore(0)
+            setGameHasStarted(false)
             setBirdPosition(250)
         }
     }, [birdPosition, obstacleLeft, obstacleHeight, bottomObstacleHeight, gameHasStarted])
@@ -125,8 +142,7 @@ function FlappyBirdComponent() {
     // Handle mouse inputs from the user
     const handleMouseDown = () => {
         if(!gameHasStarted) {
-            setGameHasStarted(true) 
-            setScore(0)
+            setGameHasStarted(true)
         }
 
         setBirdMode(bird2)
@@ -143,40 +159,47 @@ function FlappyBirdComponent() {
 
     return (
         <div className='FlappyBirdComponent'>
-            
-            <Div onMouseDown={handleMouseDown} onMouseUp={handleMouseUp}>
-                <GameBox ref={gameBoxRef} height={GAME_HEIGHT} width={GAME_WIDTH}>
-                    
-                    <Cloud 
-                        top={cloudHeight}
-                        left={cloudLeft}   
-                    />
+            <div className='gameContainer'>
+                <Div onMouseDown={handleMouseDown} onMouseUp={handleMouseUp}>
+                    <GameBox ref={gameBoxRef} height={GAME_HEIGHT} width={GAME_WIDTH}>
+                        
+                        <Cloud 
+                            top={cloudHeight}
+                            left={cloudLeft}   
+                        />
 
-                    <Bird 
-                        background={birdMode}
-                        width={BIRD_WIDTH}
-                        height={BIRD_HEIGHT}
-                        top={birdPosition}
-                    />
+                        <Bird 
+                            background={birdMode}
+                            width={BIRD_WIDTH}
+                            height={BIRD_HEIGHT}
+                            top={birdPosition}
+                        />
 
-                    <ObstacleDown
-                        top={0}
-                        width={OBSTACLE_WIDTH}
-                        height={obstacleHeight}
-                        left={obstacleLeft}
-                    />
+                        <ObstacleDown
+                            top={0}
+                            width={OBSTACLE_WIDTH}
+                            height={obstacleHeight}
+                            left={obstacleLeft}
+                        />
 
-                    <ObstacleUp
-                        top={obstacleHeight + OBSTACLE_GAP}
-                        width={OBSTACLE_WIDTH}
-                        height={bottomObstacleHeight}
-                        left={obstacleLeft}
-                    />
+                        <ObstacleUp
+                            top={obstacleHeight + OBSTACLE_GAP}
+                            width={OBSTACLE_WIDTH}
+                            height={bottomObstacleHeight}
+                            left={obstacleLeft}
+                        />
 
-                </GameBox>
-                <ScoreBox>{score}</ScoreBox>
-                <GameOver>{!gameHasStarted && 'Game Over!'}</GameOver>
-            </Div>
+                    </GameBox>
+                    <ScoreBox>{gameHasStarted && score}</ScoreBox>
+                    <GameOver>{!gameHasStarted && `Game Over!`}</GameOver>
+                    <EndScore>{!gameHasStarted && `Your Score: ${score}`}</EndScore>
+                </Div>
+            </div>
+            <div className='score' style={{margin: 'auto'}}>
+                
+                {!gameHasStarted && <Link className="link" to="/:username/profile" onClick={submitScore}>Submit Score</Link>}
+            </div>
+        
         </div> 
     )
 
@@ -203,23 +226,31 @@ const Div = styled.div`
 `;
 
 const ScoreBox = styled.div`
-    display: flex;
     width: 100%;
     color: white;
     font-size: 24px;
     top: 1px;
-    left: 30px;
+    left: 1px;
     position: relative;
 `
 
 const GameOver = styled.div`
-    display: flex;
+    white-space: nowrap;
+    width: 100%;
+    color: white;
+    font-size: 96px;
+    position: absolute;
+    margin: 15% auto;
+
+`
+
+const EndScore = styled.div`
+    white-space: nowrap;
     width: 100%;
     color: white;
     font-size: 48px;
-    top: center;
-    left: center;
-    position: relative;
+    position: absolute;
+    margin: 300px auto;
 `
 
 const GameBox = styled.div.attrs(props => ({
@@ -229,6 +260,7 @@ const GameBox = styled.div.attrs(props => ({
         top: props.top
     },
 }))`
+    display: block;
     position: fixed;
     overflow: hidden;
     background-color: #87CEEB;
@@ -251,9 +283,10 @@ const ObstacleDown = styled.div.attrs(props => ({
         top: props.top,
         width: props.width,
         height: props.height,
-        left: props.left
+        left: props.left,
     },
 }))`
+    background-position: bottom right;
     position: absolute;
     background-image: url(${tube_down});
 `

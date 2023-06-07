@@ -12,9 +12,9 @@ export default function AuthProvider({ children }) {
     //3: Put some state in the context
     const [isAuthenticated, setAuthenticated] = useState(false)
 
-    const [username, setUsername] = useState(null)
+    const [username, setUsername] = useState('')
 
-    const [token, setToken] = useState(null)
+    const [token, setToken] = useState('')
 
     return (
         <AuthContext.Provider value={ {
@@ -38,8 +38,8 @@ export default function AuthProvider({ children }) {
             if(response.status==200){
                 
                 // const jwtToken = 'Bearer ' + response.data
-                const jwtToken = response.data
-                console.log(jwtToken)
+                const jwtToken = 'Bearer ' + response.data
+                
                 
                 setAuthenticated(true)
                 setUsername(username)

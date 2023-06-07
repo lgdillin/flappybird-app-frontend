@@ -1,60 +1,74 @@
 .headerComponent {
-    font-size: 50px;
+    font-size: 24px;
     background-color: aquamarine;
     border-color: black;
-    border-bottom: 5px;
-    margin-bottom: 5;
-    padding: 2px;
+    padding: 12px;
 }
 
 .container {
     display: flex;
     width: 80%;
-    align-self: center;
-    margin-left: auto;
-    margin-right: auto;
+    height: 100%;
+    margin: 0 auto;
+    justify-content: space-between;
+
+    /* border-width: 1px;
+    border-style: solid;
+    border-color: black; */
 }
 
 .logo {
+    /* border-width: 1px;
+    border-style: solid;
+    border-color: black; */
+
+
     font-size: 24px;
-    text-align: left;
+    color: #000;
+    text-decoration: none;
+    float: left;
+    margin: 0 left;
 }
 
-.navbar {
-    /* padding: 8px; */
-    /* align-items: bottom; */
-    
-    font-size: 16px;
-    display: block;
+.navbar-split-l {
+    /* border-width: 1px;
+    border-style: solid;
+    border-color: black; */
+
+    margin: 0 left;
 }
 
-.nav-item {
-    font-size: 16px;
-    bottom: 0;
-    object-position: center bottom;
-    
-    /* padding: 10px; */
+.navbar-split-r {
+    /* border-width: 1px;
+    border-style: solid;
+    border-color: black; */
+
+    margin: 0 right;
 }
 
-.nav-link-auth {
-    bottom: 0;
+.link {
+    /* border-width: 1px;
+    border-style: solid;
+    border-color: black; */
+
+    padding: 1px 6px;
+    text-decoration: none;
+    margin: auto 0;
+
+    vertical-align: text-bottom;
+
+    font-size: 18px;
+    color: #000;
+    background-color: lightblue;
 }
 
-.nav-link-uauth {
-    bottom: 0;
-}
+.link:hover {
+    padding: 6px 6px;
+    text-align: center;
+    text-decoration: none;
 
-.login-logout {
-    font-size: 16px;
-}
+    vertical-align: middle;
 
-.login-logout.nav-link-auth {
-    font-size: 16px;
-    color: black;
-}
-
-.login-logout.nav-link-uauth {
-
-    font-size: 16px;
-    color: rgb(255, 0, 0);
+    color: #000;
+    background-color: cornflowerblue;
 }

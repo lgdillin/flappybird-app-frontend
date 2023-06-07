@@ -37,7 +37,7 @@ function LeaderboardComponent() {
         <div className="leaderboardComponent">
             <table className="table">
                 <thead>
-                    <tr>
+                    <tr className='tableHead'>
                         <th>Photo</th>
                         <th>Username</th>
                         <th>Score</th>
@@ -46,8 +46,8 @@ function LeaderboardComponent() {
                 </thead>
                 <tbody>
                     { users.map(user =>
-                        <tr key={user.username}>
-                            <td><img src={byteArrayToBase64(user.imageData)} width="100" height="100" style={{objectFit: "scale-down"}}/></td>
+                        <tr className='tableRow' key={user.username}>
+                            <td><img className='image' src={byteArrayToBase64(user.imageData)}/></td>
                             <td>{user.username}</td>
                             <td>{user.score}</td>
                             <td>{(user.date != null ? user.date.toString() : 'N/A')}</td>

@@ -24,4 +24,3 @@ export const createUserApi
 
 export const submitGameScore
     = (username, score) => apiClient.put(`/users/${username}/game/${score}`)
-

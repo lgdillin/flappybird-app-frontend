@@ -45,11 +45,19 @@ export default function WelcomeComponent() {
         .catch(error => console.log(error))
     }
 
+    const testApi = () => {
+        testRetrieveUsername(username)
+        .then(response => console.log(response))
+        .catch(error => console.log(error))
+
+        console.log(authContext.token)
+    }
+
     return (
         <div className="WelcomeComponent">
             <h1>Welcome {username}</h1>
             <div>
-                <button className="btn btn-success m-5" onClick={testRetrieveUsername}>
+                <button className="btn btn-success m-5" onClick={testApi}>
                     Call testapi
                 </button>
             </div>
